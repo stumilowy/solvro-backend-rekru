@@ -1,0 +1,61 @@
+[
+  {
+    "name": "Rum biały",
+    "description": "Delikatny, lekki rum idealny do mojito i daiquiri.",
+    "isAlcohol": true,
+    "photo": "https://example.com/photos/rum_bialy.jpg"
+  },
+  {
+    "name": "Sok z limonki",
+    "description": "Świeżo wyciśnięty sok z limonki dodający orzeźwienia koktajlom.",
+    "isAlcohol": false,
+    "photo": "https://example.com/photos/sok_limonka.jpg"
+  },
+  {
+    "name": "Cukier trzcinowy",
+    "description": "Naturalny cukier o karmelowym aromacie, często używany do słodzenia drinków.",
+    "isAlcohol": false,
+    "photo": "https://example.com/photos/cukier_trzcinowy.jpg"
+  },
+  {
+    "name": "Likier pomarańczowy",
+    "description": "Słodki likier o smaku pomarańczy, popularny w margaricie i cosmopolitanie.",
+    "isAlcohol": true,
+    "photo": "https://example.com/photos/likier_pomaranczowy.jpg"
+  },
+  {
+    "name": "Mięta świeża",
+    "description": "Aromatyczne liście mięty używane do dekoracji i nadania świeżego smaku.",
+    "isAlcohol": false,
+    "photo": "https://example.com/photos/mieta_swieza.jpg"
+  }
+]
+
+
+[
+  {
+    "name": "Mojito",
+    "category": "ALCOHOLIC",
+    "recipe": "W szklance rozgnieć miętę z cukrem i sokiem z limonki. Dodaj kruszony lód, rum i dopełnij wodą gazowaną. Wymieszaj i udekoruj miętą."
+  },
+  {
+    "name": "Pina Colada",
+    "category": "ALCOHOLIC",
+    "recipe": "W shakerze połącz biały rum, śmietankę kokosową i sok ananasowy. Wstrząśnij i przelej do schłodzonej szklanki. Udekoruj kawałkiem ananasa."
+  },
+  {
+    "name": "Virgin Mojito",
+    "category": "NO_ALCOHOLIC",
+    "recipe": "Rozgnieć miętę z cukrem i limonką, dodaj kruszony lód i zalej wodą gazowaną. Wymieszaj i udekoruj gałązką mięty."
+  },
+  {
+    "name": "Cosmopolitan",
+    "category": "ALCOHOLIC",
+    "recipe": "W shakerze wymieszaj wódkę, likier pomarańczowy, sok żurawinowy i odrobinę soku z limonki. Wstrząśnij i przelej do kieliszka koktajlowego."
+  },
+  {
+    "name": "Smoothie Truskawkowe",
+    "category": "NO_ALCOHOLIC",
+    "recipe": "Zmiksuj truskawki, mleko, jogurt i miód. Podawaj schłodzone, udekorowane świeżymi owocami."
+  }
+]

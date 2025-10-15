@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model Cocktail {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  category  Category  
+  recipe    String
+  ingredients IngredientsForCocktails[]
+
+}
+
+model Ingredient {
+  id            Int     @id @default(autoincrement())
+  name          String  @unique
+  description   String
+  isAlcohol     Boolean
+  photo         String      
+  cocktails     IngredientsForCocktails[]
+}
+
+model IngredientsForCocktails {
+  cocktail      Cocktail      @relation(fields: [cocktailId],references: [id] )
+  cocktailId    Int
+  ingredient    Ingredient    @relation(fields: [ingredientId],references: [id])
+  ingredientId  Int
+  quantity      Float
+
+  @@id([cocktailId,ingredientId])
+}
+
+enum Category {
+  ALCOHOLIC
+  NO_ALCOHOLIC
+}
