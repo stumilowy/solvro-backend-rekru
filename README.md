@@ -1,7 +1,8 @@
 Technologie użyte w projekcie:
-backend framework: NestJs
--platforma Postgres serverless: Neon
--ORM: Prisma
+- backend framework: NestJs
+- platforma Postgres serverless: Neon
+- ORM: Prisma
+
 
 >[Screen projektu bazy dnaych](extra/image.png)
 
