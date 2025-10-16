@@ -1,3 +1,10 @@
+>[Screen projektu bazy dnaych](extra/image.png)
+
+>[Dokumentacja](extra/API_DOCUMENTATION.md)
+
+>[Przykładowe dane](extra/example_data.json)
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
