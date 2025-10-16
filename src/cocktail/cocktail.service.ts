@@ -8,7 +8,7 @@ import { connect } from 'http2';
 @Injectable()
 export class CocktailService {
 
-  constructor(private readonly databaseService:  DatabaseService) { }
+  constructor(private readonly databaseService: DatabaseService) { }
 
 
   async create(createCocktailDto: Prisma.CocktailCreateInput) {
@@ -41,31 +41,31 @@ export class CocktailService {
   async findOne(id: number) {
     return this.databaseService.cocktail.findUnique({
       where: { id, },
-      include: { ingredients : { include : {ingredient : true}}}
+      include: { ingredients: { include: { ingredient: true } } }
     })
   }
 
   async update(id: number, updateCocktailDto: Prisma.CocktailUpdateInput) {
     return this.databaseService.cocktail.update({
-      where: { id,},
+      where: { id, },
       data: updateCocktailDto
     })
   }
 
-  async addIngredientToCocktail(cocktailId: number, addIngredientDto: AddIngredeintDto){
+  async addIngredientToCocktail(cocktailId: number, addIngredientDto: AddIngredeintDto) {
     const { ingredientId, quantity } = addIngredientDto;
 
     const cocktail = await this.databaseService.cocktail.findUnique({
-      where: {id: cocktailId}
+      where: { id: cocktailId }
     });
-    if (!cocktail){
+    if (!cocktail) {
       throw new NotFoundException(`Coctail with id ${cocktailId} cannot be found`)
     }
 
     const ingredient = await this.databaseService.ingredient.findUnique({
-      where: {id: ingredientId}
+      where: { id: ingredientId }
     })
-    if(!ingredient){
+    if (!ingredient) {
       throw new NotFoundException(`Ingredient with id ${ingredientId} cannot be found`)
     }
 
@@ -79,54 +79,54 @@ export class CocktailService {
     await this.databaseService.ingredientsForCocktails.create({
       data: {
         cocktail: {
-          connect: { id: cocktailId},
+          connect: { id: cocktailId },
         },
         ingredient: {
-          connect: { id: ingredientId},
+          connect: { id: ingredientId },
         },
         quantity: quantity,
       },
     });
 
     return this.databaseService.cocktail.findUnique({
-      where: { id: cocktailId},
-      include: { ingredients : { include : {ingredient : true}}}
+      where: { id: cocktailId },
+      include: { ingredients: { include: { ingredient: true } } }
     })
 
   }
 
-  
-    async removeIngredeintFromCocktail(cocktailId: number, ingredientId: number){
-      const cocktail = await this.databaseService.cocktail.findUnique({
-        where: {id: cocktailId}
-      });
-      if (!cocktail){
-        throw new NotFoundException(`Coctail with id ${cocktailId} cannot be found`)
-      }
 
-      const ingredient = await this.databaseService.ingredient.findUnique({
-        where: {id: ingredientId}
-      })
-      if(!ingredient){
-        throw new NotFoundException(`Ingredient with id ${ingredientId} cannot be found`)
-      }
-      await this.databaseService.ingredientsForCocktails.delete({
-        where: {
-          cocktailId_ingredientId: {
-            cocktailId: cocktailId,
-            ingredientId: ingredientId
-          }
-        }
-      })
-      return this.databaseService.cocktail.findUnique({
-        where: { id: cocktailId},
-        include: { ingredients : { include : {ingredient : true}}}
-      })
+  async removeIngredeintFromCocktail(cocktailId: number, ingredientId: number) {
+    const cocktail = await this.databaseService.cocktail.findUnique({
+      where: { id: cocktailId }
+    });
+    if (!cocktail) {
+      throw new NotFoundException(`Coctail with id ${cocktailId} cannot be found`)
     }
+
+    const ingredient = await this.databaseService.ingredient.findUnique({
+      where: { id: ingredientId }
+    })
+    if (!ingredient) {
+      throw new NotFoundException(`Ingredient with id ${ingredientId} cannot be found`)
+    }
+    await this.databaseService.ingredientsForCocktails.delete({
+      where: {
+        cocktailId_ingredientId: {
+          cocktailId: cocktailId,
+          ingredientId: ingredientId
+        }
+      }
+    })
+    return this.databaseService.cocktail.findUnique({
+      where: { id: cocktailId },
+      include: { ingredients: { include: { ingredient: true } } }
+    })
+  }
 
   async remove(id: number) {
     return this.databaseService.cocktail.delete({
-      where: {id,}
+      where: { id, }
     })
   }
 }
