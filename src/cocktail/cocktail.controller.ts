@@ -1,11 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { CocktailService } from './cocktail.service';
 import { Category, Prisma } from '@prisma/client';
-import { AddIngredeintDto } from './dto/add-ingredient.dto'
+import { AddIngredeintDto } from './dto/add-ingredient.dto';
 
 @Controller('cocktail')
 export class CocktailController {
-  constructor(private readonly cocktailService: CocktailService) { }
+  constructor(private readonly cocktailService: CocktailService) {}
 
   @Post()
   create(@Body() createCocktailDto: Prisma.CocktailCreateInput) {
@@ -13,7 +22,10 @@ export class CocktailController {
   }
 
   @Post(':id/ingredients')
-  addIngredient(@Param('id') id: string, @Body() addIngredientDto: AddIngredeintDto) {
+  addIngredient(
+    @Param('id') id: string,
+    @Body() addIngredientDto: AddIngredeintDto,
+  ) {
     return this.cocktailService.addIngredientToCocktail(+id, addIngredientDto);
   }
 
@@ -22,9 +34,14 @@ export class CocktailController {
     @Query('category') category?: Category,
     @Query('containsIngredient') ingredientId?: string,
     @Query('sortBy') sortBy?: 'name' | 'creationDate',
-    @Query('sortType') sortType?: 'asc' | 'desc'
+    @Query('sortType') sortType?: 'asc' | 'desc',
   ) {
-    return this.cocktailService.findAll(category, ingredientId ? +ingredientId : undefined, sortBy, sortType);
+    return this.cocktailService.findAll(
+      category,
+      ingredientId ? +ingredientId : undefined,
+      sortBy,
+      sortType,
+    );
   }
 
   @Get(':id')
@@ -33,7 +50,10 @@ export class CocktailController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCocktailDto: Prisma.CocktailUpdateInput) {
+  update(
+    @Param('id') id: string,
+    @Body() updateCocktailDto: Prisma.CocktailUpdateInput,
+  ) {
     return this.cocktailService.update(+id, updateCocktailDto);
   }
 
@@ -46,6 +66,9 @@ export class CocktailController {
     @Param('cocktailId') cocktailId: string,
     @Param('ingredientId') ingredientId: string,
   ) {
-    return this.cocktailService.removeIngredeintFromCocktail(+cocktailId, +ingredientId);
+    return this.cocktailService.removeIngredeintFromCocktail(
+      +cocktailId,
+      +ingredientId,
+    );
   }
 }

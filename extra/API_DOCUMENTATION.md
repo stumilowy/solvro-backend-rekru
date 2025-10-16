@@ -6,7 +6,7 @@ This document provides details on the available API endpoints for managing Cockt
 
 | Method | Endpoint                                        | Description                                            | Parameters / Body                                                                                             |
 | :----- | :---------------------------------------------- | :----------------------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
-| `GET`    | `/cocktail`                                     | Get a list of all cocktails.                           | **Optional Query Params:**<br>`category` (`ALCOHOLIC`,` NO_ALCOHOLIC`)<br>`ingredientId` (to get only coctails with cerian ingerement)                      |
+| `GET`    | `/cocktail`                                     | Get a list of all cocktails.                           | **Optional Query Params:**<br>`category` (`ALCOHOLIC`,` NO_ALCOHOLIC`)<br>`ingredientId` (to get only coctails with cerian ingerement)<br>`sortBy` (`name`, `creationDate`)<br>`sortType` (`asc`, `desc`)                      |
 | `POST`   | `/cocktail`                                     | Create a new cocktail.                                 | **Body:**<br>`{ "name": "Mojito", "category": "ALCOHOLIC", "recipe": "xyz" }`                                              |
 | `GET`    | `/cocktail/:id`                                 | Get a single cocktail by its ID.                       | **Path Param:**<br>`id` (the cocktail's ID)                                                                    |
 | `PATCH`  | `/cocktail/:id`                                 | Update a cocktail's properties.                       | **Path Param:**<br>`id`<br>**Body:**<br>`{ "name": "Classic Mojito", ... }`                                     |
@@ -18,7 +18,7 @@ This document provides details on the available API endpoints for managing Cockt
 
 | Method | Endpoint          | Description                                      | Parameters / Body                                                              |
 | :----- | :---------------- | :----------------------------------------------- | :----------------------------------------------------------------------------- |
-| `GET`    | `/ingredient`     | Get a list of all ingredients.                   | **Optional Query Param:**<br>`isAlcohol` (`true` or `false`)              |
+| `GET`    | `/ingredient`     | Get a list of all ingredients.                   | **Optional Query Param:**<br>`isAlcohol` (`true` or `false`)<br>`sortBy` (`name`, `creationDate`)<br>`sortType` (`asc`, `desc`)              |
 | `POST`   | `/ingredient`     | Create a new ingredient.                         | **Body:**<br>`{ "name": "White Rum","description":"xyz" "isAlcohol": true, "photo":"https://example.com/photo" }`                       |
 | `GET`    | `/ingredient/:id` | Get a single ingredient by its ID.               | **Path Param:**<br>`id` (the ingredient's ID)                                  |
 | `PATCH`  | `/ingredient/:id` | Update an ingredient's properties.              | **Path Param:**<br>`id`<br>**Body:**<br>`{ "name": "Aged White Rum", ... }`      |

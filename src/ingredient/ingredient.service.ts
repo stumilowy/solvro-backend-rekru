@@ -4,19 +4,18 @@ import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
 export class IngredientService {
-
-  constructor(private readonly databaseService: DatabaseService) { }
+  constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createIngredientDto: Prisma.IngredientCreateInput) {
     return this.databaseService.ingredient.create({
-      data: createIngredientDto
+      data: createIngredientDto,
     });
   }
 
   async findAll(
     isAlcohol?: boolean,
     sortBy?: 'name' | 'creationDate',
-    sortType: 'asc' | 'desc' = 'asc'
+    sortType: 'asc' | 'desc' = 'asc',
   ) {
     const orderBy = {};
     if (sortBy === 'name') {
@@ -24,13 +23,13 @@ export class IngredientService {
     } else if (sortBy === 'creationDate') {
       orderBy['creationDate'] = sortType;
     }
-    console.log(typeof isAlcohol)
+    console.log(typeof isAlcohol);
     if (typeof isAlcohol === 'boolean') {
       return this.databaseService.ingredient.findMany({
         where: {
           isAlcohol,
         },
-        orderBy
+        orderBy,
       });
     }
     return this.databaseService.ingredient.findMany({
@@ -40,20 +39,20 @@ export class IngredientService {
 
   async findOne(id: number) {
     return this.databaseService.ingredient.findUnique({
-      where: { id, }
+      where: { id },
     });
   }
 
   async update(id: number, updateIngredientDto: Prisma.IngredientUpdateInput) {
     return this.databaseService.ingredient.update({
-      where: { id, },
-      data: updateIngredientDto
+      where: { id },
+      data: updateIngredientDto,
     });
   }
 
   async remove(id: number) {
     return this.databaseService.ingredient.delete({
-      where: { id, }
+      where: { id },
     });
   }
 }
