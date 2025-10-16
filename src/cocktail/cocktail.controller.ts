@@ -5,7 +5,7 @@ import { AddIngredeintDto } from './dto/add-ingredient.dto'
 
 @Controller('cocktail')
 export class CocktailController {
-  constructor(private readonly cocktailService: CocktailService) {}
+  constructor(private readonly cocktailService: CocktailService) { }
 
   @Post()
   create(@Body() createCocktailDto: Prisma.CocktailCreateInput) {
@@ -13,16 +13,18 @@ export class CocktailController {
   }
 
   @Post(':id/ingredients')
-  addIngredient(@Param('id') id: string, @Body() addIngredientDto: AddIngredeintDto){ 
-    return this.cocktailService.addIngredientToCocktail(+id,addIngredientDto);
+  addIngredient(@Param('id') id: string, @Body() addIngredientDto: AddIngredeintDto) {
+    return this.cocktailService.addIngredientToCocktail(+id, addIngredientDto);
   }
 
   @Get()
   findAll(
     @Query('category') category?: Category,
     @Query('containsIngredient') ingredientId?: string,
+    @Query('sortBy') sortBy?: 'name' | 'creationDate',
+    @Query('sortType') sortType?: 'asc' | 'desc'
   ) {
-    return this.cocktailService.findAll(category, ingredientId ? +ingredientId : undefined);
+    return this.cocktailService.findAll(category, ingredientId ? +ingredientId : undefined, sortBy, sortType);
   }
 
   @Get(':id')
@@ -41,9 +43,9 @@ export class CocktailController {
   }
   @Delete(':cocktailId/ingredients/:ingredientId')
   emoveIngredientFromCocktail(
-     @Param('cocktailId') cocktailId: string,
-     @Param('ingredientId') ingredientId: string,
-  ){
-      return this.cocktailService.removeIngredeintFromCocktail(+cocktailId, +ingredientId);
+    @Param('cocktailId') cocktailId: string,
+    @Param('ingredientId') ingredientId: string,
+  ) {
+    return this.cocktailService.removeIngredeintFromCocktail(+cocktailId, +ingredientId);
   }
 }

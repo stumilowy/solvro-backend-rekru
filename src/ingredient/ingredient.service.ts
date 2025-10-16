@@ -13,14 +13,29 @@ export class IngredientService {
     });
   }
 
-  async findAll(isAlcohol?: boolean) {
-    if(typeof isAlcohol === 'boolean') {
+  async findAll(
+    isAlcohol?: boolean,
+    sortBy?: 'name' | 'creationDate',
+    sortType: 'asc' | 'desc' = 'asc'
+  ) {
+    const orderBy = {};
+    if (sortBy === 'name') {
+      orderBy['name'] = sortType;
+    } else if (sortBy === 'creationDate') {
+      orderBy['creationDate'] = sortType;
+    }
+    console.log(typeof isAlcohol)
+    if (typeof isAlcohol === 'boolean') {
       return this.databaseService.ingredient.findMany({
         where: {
           isAlcohol,
-        }
+        },
+        orderBy
       });
-    } return this.databaseService.ingredient.findMany();
+    }
+    return this.databaseService.ingredient.findMany({
+      orderBy,
+    });
   }
 
   async findOne(id: number) {
@@ -31,14 +46,14 @@ export class IngredientService {
 
   async update(id: number, updateIngredientDto: Prisma.IngredientUpdateInput) {
     return this.databaseService.ingredient.update({
-      where: {id,},
+      where: { id, },
       data: updateIngredientDto
     });
   }
 
   async remove(id: number) {
     return this.databaseService.ingredient.delete({
-      where: {id,}
+      where: { id, }
     });
   }
 }

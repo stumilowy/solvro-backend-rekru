@@ -7,40 +7,42 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 // prisma/schema.prisma
 datasource db {
-  provider  = "postgresql"
-  url  	    = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
   // uncomment next line if you use Prisma <5.10
   // directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 model Cocktail {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  category  Category  
-  recipe    String
-  ingredients IngredientsForCocktails[]
-
+  id           Int                       @id @default(autoincrement())
+  name         String                    @unique
+  category     Category
+  recipe       String
+  creationDate DateTime                  @default(now())
+  ingredients  IngredientsForCocktails[]
 }
 
 model Ingredient {
-  id            Int     @id @default(autoincrement())
-  name          String  @unique
-  description   String
-  isAlcohol     Boolean
-  photo         String      
-  cocktails     IngredientsForCocktails[]
+  id           Int                       @id @default(autoincrement())
+  name         String                    @unique
+  description  String
+  isAlcohol    Boolean
+  photo        String
+  creationDate DateTime                  @default(now())
+  cocktails    IngredientsForCocktails[]
 }
 
 model IngredientsForCocktails {
-  cocktail      Cocktail      @relation(fields: [cocktailId],references: [id] )
-  cocktailId    Int
-  ingredient    Ingredient    @relation(fields: [ingredientId],references: [id])
-  ingredientId  Int
-  quantity      Float
+  cocktail     Cocktail   @relation(fields: [cocktailId], references: [id])
+  cocktailId   Int
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+  quantity     Float
 
-  @@id([cocktailId,ingredientId])
+  @@id([cocktailId, ingredientId])
 }
 
 enum Category {

@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseBoolPipe } from '@nestjs/common';
 import { IngredientService } from './ingredient.service';
 import { Prisma } from '@prisma/client';
 
 @Controller('ingredient')
 export class IngredientController {
-  constructor(private readonly ingredientService: IngredientService) {}
+  constructor(private readonly ingredientService: IngredientService) { }
 
   @Post()
   create(@Body() createIngredientDto: Prisma.IngredientCreateInput) {
@@ -12,8 +12,11 @@ export class IngredientController {
   }
 
   @Get()
-  findAll(@Query('isAlcohol') isAlcohol?: boolean) {
-    return this.ingredientService.findAll(isAlcohol);
+  findAll(
+    @Query('isAlcohol', new ParseBoolPipe({ optional: true })) isAlcohol?: boolean,
+    @Query('sortBy') sortBy?: 'name' | 'creationDate',
+    @Query('sortType') sortType?: 'asc' | 'desc') {
+    return this.ingredientService.findAll(isAlcohol, sortBy, sortType);
   }
 
   @Get(':id')
@@ -22,7 +25,7 @@ export class IngredientController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateIngredientDto: Prisma.IngredientUpdateInput ) {
+  update(@Param('id') id: string, @Body() updateIngredientDto: Prisma.IngredientUpdateInput) {
     return this.ingredientService.update(+id, updateIngredientDto);
   }
 

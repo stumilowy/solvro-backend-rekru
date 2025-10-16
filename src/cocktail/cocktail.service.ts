@@ -17,9 +17,19 @@ export class CocktailService {
     })
   }
 
-  async findAll(category?: Category, ingredientId?: number) {
+  async findAll(
+    category?: Category,
+    ingredientId?: number,
+    sortBy?: 'name' | 'creationDate',
+    sortType: 'asc' | 'desc' = 'asc'
+  ) {
     const where: Prisma.CocktailWhereInput = {};
-
+    const orderBy = {}
+    if (sortBy === 'name') {
+      orderBy['name'] = sortType
+    } else if (sortBy === 'creationDate') {
+      orderBy['creationDate'] = sortType
+    }
     if (category) {
       where.category = category;
     }
@@ -34,6 +44,7 @@ export class CocktailService {
 
     return this.databaseService.cocktail.findMany({
       where,
+      orderBy,
       include: { ingredients: { include: { ingredient: true } } },
     });
   }
